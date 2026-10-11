@@ -1,0 +1,234 @@
+[
+  {
+    "id": "gulab-jamun",
+    "name": "Gulab Jamun Cake",
+    "category": "Cakes",
+    "catalogueImage": "assets/catalogue/studio/gulab-jamun.png",
+    "image": "assets/gulab-jamun-hero.png",
+    "price": {
+      "CAD": 79,
+      "USD": 59
+    },
+    "description": "Your favourite gulab jamun, reimagined as a celebration cake with cream and pistachio.",
+    "featured": true,
+    "headerTone": "light",
+    "title": "A classic<br><em>Indian sweet.</em>",
+    "cta": "View Cake",
+    "heroDescription": "<em>A beautiful celebration cake.</em><br><br>The beloved gulab jamun, reimagined as an indulgent layered cake with velvety mousse, delicate pistachio, and pieces of gulab jamun in every bite."
+  },
+  {
+    "id": "diwali-box",
+    "name": "Diwali Cake Cup Box",
+    "category": "Gift boxes",
+    "catalogueImage": "assets/catalogue/studio/diwali-box-four-open-v2.png",
+    "image": "assets/diwali-four-cup-hero.png",
+    "price": {
+      "CAD": 54,
+      "USD": 40
+    },
+    "description": "A festive assortment of four layered dessert cups, presented in a tall white craft gift box made from non-corrugated cardboard, finished with a saffron-orange Diwali sleeve. Share a little sweetness this Diwali.",
+    "featured": true,
+    "headerTone": "light",
+    "title": "A Little<br><em>Diwali Magic.</em>",
+    "cta": "View Cake",
+    "heroDescription": "<em>Four cups of pure indulgence.</em><br><br>Celebrate the festival of lights with four indulgent dessert cups in an elegant gift box. A little luxury for gifting, sharing, and savouring."
+  },
+  {
+    "id": "kaju-katli",
+    "name": "Kaju Katli Cake",
+    "category": "Cakes",
+    "catalogueImage": "assets/catalogue/studio/kaju-katli.png",
+    "image": "assets/kaju-katli-hero.png",
+    "price": {
+      "CAD": 89,
+      "USD": 66
+    },
+    "description": "Kaju katli meets celebration cake: silver-topped sweets, cream piping, and a finishing touch of pistachio.",
+    "featured": true,
+    "headerTone": "light",
+    "title": "Dressed<br><em>in silver.</em>",
+    "cta": "View Cake",
+    "heroDescription": "<em>Made to celebrate.</em><br><br>A luxurious tres leches cake inspired by Indian kaju katli, featuring soft, milk-soaked layers, rich cashew flavours, delicate pistachio, and a shimmering silver finish."
+  },
+  {
+    "id": "rasmalai",
+    "name": "Rasmalai Tres Leche Cake",
+    "category": "Cakes",
+    "catalogueImage": "assets/catalogue/studio/rasmalai.png",
+    "image": "assets/catalogue/rasmalai.jpg",
+    "price": {
+      "CAD": 84,
+      "USD": 62
+    },
+    "description": "A white cream cake finished with rasmalai sweets, cream piping, and a scattering of pistachio.",
+    "featured": false,
+    "headerTone": "light"
+  },
+  {
+    "id": "caramel",
+    "name": "Caramel Cake",
+    "category": "Cakes",
+    "catalogueImage": "assets/catalogue/studio/caramel.png",
+    "image": "assets/catalogue/caramel.jpg",
+    "price": {
+      "CAD": 74,
+      "USD": 55
+    },
+    "description": "A glossy caramel-topped cake with chocolate pearls and a two-tone chocolate decoration.",
+    "featured": false,
+    "headerTone": "light"
+  },
+  {
+    "id": "boondi-cup",
+    "name": "Boondi Cake Cup",
+    "category": "Cake cups",
+    "catalogueImage": "assets/catalogue/studio/boondi-cup.png",
+    "image": "assets/catalogue/boondi-cup.jpg",
+    "price": {
+      "CAD": 8.5,
+      "USD": 6.5
+    },
+    "description": "Layered cake and cream with an orange boondi topping, ivory pearls, a chocolate shard, and silver leaf.",
+    "featured": false,
+    "headerTone": "light"
+  },
+  {
+    "id": "carrot-cup",
+    "name": "Carrot Cake Cup",
+    "category": "Cake cups",
+    "catalogueImage": "assets/catalogue/studio/carrot-cup.png",
+    "image": "assets/catalogue/carrot-cup.jpg",
+    "price": {
+      "CAD": 8.5,
+      "USD": 6.5
+    },
+    "description": "Layers of cake and cream topped with carrot halwa, almond slivers, and silver leaf.",
+    "featured": false,
+    "headerTone": "light"
+  },
+  {
+    "id": "strawberry-cup",
+    "name": "Strawberry Cake Cup",
+    "category": "Cake cups",
+    "catalogueImage": "assets/catalogue/studio/strawberry-cup.png",
+    "image": "assets/catalogue/strawberry-cup.jpg",
+    "price": {
+      "CAD": 8,
+      "USD": 6
+    },
+    "description": "Pink cream and strawberry layers finished with a fresh strawberry and a striped chocolate shard.",
+    "featured": false,
+    "headerTone": "light"
+  },
+  {
+    "id": "gulab-jamun-cup",
+    "name": "Gulab Jamun Cake Cup",
+    "category": "Cake cups",
+    "catalogueImage": "assets/catalogue/studio/gulab-jamun-cup.png",
+    "image": "assets/catalogue/gulab-jamun-cup.jpg",
+    "price": {
+      "CAD": 9,
+      "USD": 7
+    },
+    "description": "A layered dessert cup with gulab jamun, pale cream, pistachios, and rose-petal garnish.",
+    "featured": false,
+    "headerTone": "light"
+  },
+  {
+    "id": "mango-cup",
+    "name": "Mango Cake Cup",
+    "category": "Cake cups",
+    "catalogueImage": "assets/catalogue/studio/mango-cup.png",
+    "image": "assets/catalogue/mango-cup.jpg",
+    "price": {
+      "CAD": 8.5,
+      "USD": 6.5
+    },
+    "description": "Golden mango cream and cake layers topped with mango pieces and striped chocolate sticks.",
+    "featured": false,
+    "headerTone": "light"
+  },
+  {
+    "id": "rasmalai-cup",
+    "name": "Rasmalai Cake Cup",
+    "category": "Cake cups",
+    "catalogueImage": "assets/catalogue/studio/rasmalai-cup.png",
+    "image": "assets/catalogue/rasmalai-cup.jpg",
+    "price": {
+      "CAD": 9,
+      "USD": 7
+    },
+    "description": "A creamy layered cup topped with a rasmalai disc, saffron strands, pistachios, and striped chocolate sticks.",
+    "featured": false,
+    "headerTone": "light"
+  },
+  {
+    "id": "chocolate-cup",
+    "name": "Chocolate Cake Cup",
+    "category": "Cake cups",
+    "catalogueImage": "assets/catalogue/studio/chocolate-cup.png",
+    "image": "assets/catalogue/chocolate-cup.jpg",
+    "price": {
+      "CAD": 8,
+      "USD": 6
+    },
+    "description": "Chocolate cream and cake layers topped with cake pieces and a chocolate drizzle.",
+    "featured": false,
+    "headerTone": "light"
+  },
+  {
+    "id": "black-forest-cup",
+    "name": "Black Forest Cake Cup",
+    "category": "Cake cups",
+    "catalogueImage": "assets/catalogue/studio/black-forest-cup.png",
+    "image": "assets/catalogue/black-forest-cup.jpg",
+    "price": {
+      "CAD": 8.5,
+      "USD": 6.5
+    },
+    "description": "Dark cake layers, white cream, and a generous finish of chocolate shavings.",
+    "featured": false,
+    "headerTone": "light"
+  },
+  {
+    "id": "pistachio-cup",
+    "name": "Pistachio Cake Cup",
+    "category": "Cake cups",
+    "catalogueImage": "assets/catalogue/studio/pistachio-cup.png",
+    "image": "assets/catalogue/pistachio-cup.jpg",
+    "price": {
+      "CAD": 9,
+      "USD": 7
+    },
+    "description": "Cake and cream layers with a generous pistachio topping and striped chocolate sticks.",
+    "featured": false,
+    "headerTone": "light"
+  },
+  {
+    "id": "strawberry",
+    "name": "Strawberry Cloud Cake",
+    "hidden": true,
+    "price": {
+      "CAD": 79,
+      "USD": 59
+    }
+  },
+  {
+    "id": "chocolate",
+    "name": "Chocolate Celebration",
+    "hidden": true,
+    "price": {
+      "CAD": 79,
+      "USD": 59
+    }
+  },
+  {
+    "id": "berry",
+    "name": "Berry Celebration",
+    "hidden": true,
+    "price": {
+      "CAD": 79,
+      "USD": 59
+    }
+  }
+]

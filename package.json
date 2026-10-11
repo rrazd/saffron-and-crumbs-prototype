@@ -1,0 +1,12 @@
+{
+  "name": "saffron-and-crumbs",
+  "private": true,
+  "scripts": {
+    "dev": "python3 scripts/dev-server.py",
+    "build": "node scripts/build-pages.mjs",
+    "test": "node tests/storefront.cjs"
+  },
+  "devDependencies": {
+    "linkedom": "^0.18.13"
+  }
+}

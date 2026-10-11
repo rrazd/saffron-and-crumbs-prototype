@@ -1,0 +1,6 @@
+Tool: built-in imagegen.
+Final assets: dist/assets/catalogue/studio/diwali-box-open-branded.png and dist/assets/diwali-gift-box-branded.png.
+References: earlier open-box studio and hero images; final tall white branded craft box.
+
+Update only the gift-box packaging to match image2 exactly: taller white folding non-corrugated cardboard craft carton, orange printed sleeve with fine gold mandala linework and ivory medallion bearing SC botanical business logo and 'Saffron & Crumbs', Happy Diwali script on white lid. In this OPEN BOX photograph, retain six cake cups with all original distinct flavours, toppings, positions, realistic sizes. Deepen sidewalls sensibly but keep cups visible. Lid is open/propped behind the cups with decorated outside face visibly showing orange sleeve and SC business emblem; no ribbon anywhere. Keep studio lighting, angle and composition of image1. Do not put a logo or sleeve across cups. No note/envelope in this open-box view; those belong only to the separate packaging view. Full product and lid edges in frame, premium professional photograph.
+Studio version keeps a transparent square background. Hero version keeps the warm landscape food photography setting.
