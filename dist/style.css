@@ -1083,3 +1083,13 @@ input::placeholder,textarea::placeholder{color:#625d59;opacity:1}
 .founder-daughter,.founder-mother,.founder-baker-hat,.founder-doodle{animation:none!important}
 
 @media(max-width:1050px){.cart-drawer{width:100vw;max-width:100vw}}
+
+/* Keep each paper shape attached to its portrait at every container width. */
+.founder-art{width:100%;height:auto;min-height:0;aspect-ratio:1 / 1.18}
+.founder-portrait{isolation:isolate}
+.founder-portrait::before{content:"";position:absolute;z-index:-1;left:2%;right:2%;top:15%;bottom:-4%;border-radius:46% 46% 8px 8px}
+.founder-daughter{top:14%;bottom:auto}
+.founder-mother{top:4%;bottom:auto}
+.founder-daughter::before{background:#e8d7c3}
+.founder-mother::before{background:#ddc5ba}
+.founder-doodle{width:20%;height:auto;top:3%}
