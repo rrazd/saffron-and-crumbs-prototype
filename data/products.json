@@ -1,234 +1,233 @@
 [
   {
     "id": "gulab-jamun",
-    "name": "Gulab Jamun Cake",
+    "name": "Gulab jamun",
     "category": "Cakes",
     "catalogueImage": "assets/catalogue/studio/gulab-jamun.png",
     "image": "assets/gulab-jamun-hero.png",
     "price": {
-      "CAD": 79,
-      "USD": 59
+      "CAD": 14.99
     },
-    "description": "Your favourite gulab jamun, reimagined as a celebration cake with cream and pistachio.",
+    "description": "A two-layer vanilla cake filled with silky vanilla mousse, pieces of gulab jamun, and pistachios. Soaked in cardamom-infused syrup, finished with creamy frosting, and topped with whole gulab jamuns.",
     "featured": true,
     "headerTone": "light",
     "title": "A classic<br><em>Indian sweet.</em>",
     "cta": "View Cake",
-    "heroDescription": "<em>A beautiful celebration cake.</em><br><br>The beloved gulab jamun, reimagined as an indulgent layered cake with velvety mousse, delicate pistachio, and pieces of gulab jamun in every bite."
+    "heroDescription": "<em>A beautiful celebration cake.</em><br><br>The beloved gulab jamun, reimagined as an indulgent layered cake with velvety mousse, delicate pistachio, and pieces of gulab jamun in every bite.",
+    "detailFact": "5-inch cake"
   },
   {
     "id": "diwali-box",
-    "name": "Diwali Cake Cup Box",
+    "name": "Diwali cake cup box",
     "category": "Gift boxes",
     "catalogueImage": "assets/catalogue/studio/diwali-box-four-open-v2.png",
     "image": "assets/diwali-four-cup-hero.png",
-    "price": {
-      "CAD": 54,
-      "USD": 40
-    },
-    "description": "A festive assortment of four layered dessert cups, presented in a tall white craft gift box made from non-corrugated cardboard, finished with a saffron-orange Diwali sleeve. Share a little sweetness this Diwali.",
+    "description": "A festive assortment of four cake cups of your choice, inspired by Diwali. Beautifully presented in an elegant 8 × 8-inch white gift box, finished with a saffron-orange ribbon.",
     "featured": true,
     "headerTone": "light",
     "title": "A Little<br><em>Diwali Magic.</em>",
-    "cta": "View Cake",
-    "heroDescription": "<em>Four cups of pure indulgence.</em><br><br>Celebrate the festival of lights with four indulgent dessert cups in an elegant gift box. A little luxury for gifting, sharing, and savouring."
+    "cta": "View gift box",
+    "heroDescription": "<em>Four cups of pure indulgence.</em><br><br>Celebrate the festival of lights with four indulgent dessert cups in an elegant gift box. A little luxury for gifting, sharing, and savouring.",
+    "defaultCups": [
+      "boondi-cup",
+      "gulab-jamun-cup",
+      "mango-cup",
+      "rasmalai-cup"
+    ]
   },
   {
     "id": "kaju-katli",
-    "name": "Kaju Katli Cake",
+    "name": "Kaju katli",
     "category": "Cakes",
     "catalogueImage": "assets/catalogue/studio/kaju-katli.png",
     "image": "assets/kaju-katli-hero.png",
     "price": {
-      "CAD": 89,
-      "USD": 66
+      "CAD": 17.99
     },
-    "description": "Kaju katli meets celebration cake: silver-topped sweets, cream piping, and a finishing touch of pistachio.",
+    "description": "A two-layer vanilla cake filled with silky vanilla mousse, pieces of kaju katli, and chopped pistachios. Soaked in milk and kaju katli syrup, layered with vanilla custard, and finished with Chantilly cream frosting, silver-topped kaju katli, and pistachios.",
     "featured": true,
     "headerTone": "light",
     "title": "Dressed<br><em>in silver.</em>",
     "cta": "View Cake",
-    "heroDescription": "<em>Made to celebrate.</em><br><br>A luxurious tres leches cake inspired by Indian kaju katli, featuring soft, milk-soaked layers, rich cashew flavours, delicate pistachio, and a shimmering silver finish."
+    "heroDescription": "<em>Made to celebrate.</em><br><br>A luxurious tres leches cake inspired by Indian kaju katli, featuring soft, milk-soaked layers, rich cashew flavours, delicate pistachio, and a shimmering silver finish.",
+    "detailFact": "5-inch cake"
   },
   {
     "id": "rasmalai",
-    "name": "Rasmalai Tres Leche Cake",
+    "name": "Rasmalai tres leche",
     "category": "Cakes",
     "catalogueImage": "assets/catalogue/studio/rasmalai.png",
     "image": "assets/catalogue/rasmalai.jpg",
     "price": {
-      "CAD": 84,
-      "USD": 62
+      "CAD": 17.99
     },
-    "description": "A white cream cake finished with rasmalai sweets, cream piping, and a scattering of pistachio.",
+    "description": "A two-layer vanilla cake filled with silky vanilla mousse, pieces of kesar rasmalai, and chopped pistachios. Soaked in sweetened milk syrup and finished with creamy frosting, kesar rasmalai, and a generous sprinkling of pistachios. Available in an eggless option.",
     "featured": false,
-    "headerTone": "light"
+    "headerTone": "light",
+    "detailFact": "5-inch cake"
   },
   {
     "id": "caramel",
-    "name": "Caramel Cake",
+    "name": "Caramel",
     "category": "Cakes",
     "catalogueImage": "assets/catalogue/studio/caramel.png",
     "image": "assets/catalogue/caramel.jpg",
     "price": {
-      "CAD": 74,
-      "USD": 55
+      "CAD": 17.99
     },
-    "description": "A glossy caramel-topped cake with chocolate pearls and a two-tone chocolate decoration.",
+    "description": "A two-layer vanilla sponge cake soaked in rich coffee syrup, filled with silky Chantilly cream. Finished with a glossy layer of caramel, crispy chocolate pearls, and an elegant chocolate decoration.",
     "featured": false,
-    "headerTone": "light"
+    "headerTone": "light",
+    "detailFact": "5-inch cake"
   },
   {
     "id": "boondi-cup",
-    "name": "Boondi Cake Cup",
+    "name": "Moti choor ladoo",
     "category": "Cake cups",
     "catalogueImage": "assets/catalogue/studio/boondi-cup.png",
     "image": "assets/catalogue/boondi-cup.jpg",
     "price": {
-      "CAD": 8.5,
-      "USD": 6.5
+      "CAD": 5.0
     },
-    "description": "Layered cake and cream with an orange boondi topping, ivory pearls, a chocolate shard, and silver leaf.",
+    "description": "Layers of soft vanilla sponge and motichoor boondi, paired with silky cardamom-infused cream cheese. Finished with a generous topping of boondi, crisp white chocolate pearls, an elegant chocolate shard, and delicate silver leaf.",
     "featured": false,
-    "headerTone": "light"
-  },
-  {
-    "id": "carrot-cup",
-    "name": "Carrot Cake Cup",
-    "category": "Cake cups",
-    "catalogueImage": "assets/catalogue/studio/carrot-cup.png",
-    "image": "assets/catalogue/carrot-cup.jpg",
-    "price": {
-      "CAD": 8.5,
-      "USD": 6.5
-    },
-    "description": "Layers of cake and cream topped with carrot halwa, almond slivers, and silver leaf.",
-    "featured": false,
-    "headerTone": "light"
+    "headerTone": "light",
+    "detailFact": "9 ounce cup"
   },
   {
     "id": "strawberry-cup",
-    "name": "Strawberry Cake Cup",
+    "name": "Strawberry cup",
     "category": "Cake cups",
     "catalogueImage": "assets/catalogue/studio/strawberry-cup.png",
     "image": "assets/catalogue/strawberry-cup.jpg",
     "price": {
-      "CAD": 8,
-      "USD": 6
+      "CAD": 5.0
     },
-    "description": "Pink cream and strawberry layers finished with a fresh strawberry and a striped chocolate shard.",
+    "description": "Layers of soft vanilla sponge soaked in strawberry syrup, paired with silky strawberry mousse and sweet strawberry filling. Finished with a swirl of strawberry mousse, a fresh strawberry, and an elegant chocolate shard.",
     "featured": false,
-    "headerTone": "light"
+    "headerTone": "light",
+    "detailFact": "9 ounce cup"
+  },
+  {
+    "id": "carrot-cup",
+    "name": "Gajar halwa",
+    "category": "Cake cups",
+    "catalogueImage": "assets/catalogue/studio/carrot-cup.png",
+    "image": "assets/catalogue/carrot-cup.jpg",
+    "price": {
+      "CAD": 6.0
+    },
+    "description": "Layers of soft vanilla sponge, silky custard mousse, and rich gajar halwa. Finished with a generous topping of carrot halwa, crunchy almond slivers, and delicate silver leaf.",
+    "featured": false,
+    "headerTone": "light",
+    "detailFact": "9 ounce cup"
   },
   {
     "id": "gulab-jamun-cup",
-    "name": "Gulab Jamun Cake Cup",
+    "name": "Gulab jamun cup",
     "category": "Cake cups",
     "catalogueImage": "assets/catalogue/studio/gulab-jamun-cup.png",
     "image": "assets/catalogue/gulab-jamun-cup.jpg",
     "price": {
-      "CAD": 9,
-      "USD": 7
+      "CAD": 6.0
     },
-    "description": "A layered dessert cup with gulab jamun, pale cream, pistachios, and rose-petal garnish.",
+    "description": "Layers of soft vanilla sponge, silky vanilla mousse, and creamy custard pudding with pieces of gulab jamun. Finished with a whole gulab jamun, chopped pistachios, and delicate dried rose petals.",
     "featured": false,
-    "headerTone": "light"
+    "headerTone": "light",
+    "detailFact": "9 ounce cup"
   },
   {
     "id": "mango-cup",
-    "name": "Mango Cake Cup",
+    "name": "Mango cup",
     "category": "Cake cups",
     "catalogueImage": "assets/catalogue/studio/mango-cup.png",
     "image": "assets/catalogue/mango-cup.jpg",
     "price": {
-      "CAD": 8.5,
-      "USD": 6.5
+      "CAD": 5.0
     },
-    "description": "Golden mango cream and cake layers topped with mango pieces and striped chocolate sticks.",
+    "description": "Layers of soft vanilla sponge soaked in mango pulp, paired with silky mango mousse. Finished with a generous topping of fresh diced Kesar mangoes and elegant chocolate decorations.",
     "featured": false,
-    "headerTone": "light"
+    "headerTone": "light",
+    "detailFact": "9 ounce cup"
   },
   {
     "id": "rasmalai-cup",
-    "name": "Rasmalai Cake Cup",
+    "name": "Rasmalai cup",
     "category": "Cake cups",
     "catalogueImage": "assets/catalogue/studio/rasmalai-cup.png",
     "image": "assets/catalogue/rasmalai-cup.jpg",
     "price": {
-      "CAD": 9,
-      "USD": 7
+      "CAD": 6.0
     },
-    "description": "A creamy layered cup topped with a rasmalai disc, saffron strands, pistachios, and striped chocolate sticks.",
+    "description": "Layers of soft vanilla sponge soaked in rasmalai syrup, paired with silky vanilla mousse. Finished with a kesar rasmalai, chopped pistachios, delicate saffron strands, and elegant chocolate decorations.",
     "featured": false,
-    "headerTone": "light"
+    "headerTone": "light",
+    "detailFact": "9 ounce cup"
   },
   {
     "id": "chocolate-cup",
-    "name": "Chocolate Cake Cup",
+    "name": "Chocolate brownie",
     "category": "Cake cups",
     "catalogueImage": "assets/catalogue/studio/chocolate-cup.png",
     "image": "assets/catalogue/chocolate-cup.jpg",
     "price": {
-      "CAD": 8,
-      "USD": 6
+      "CAD": 6.0
     },
-    "description": "Chocolate cream and cake layers topped with cake pieces and a chocolate drizzle.",
+    "description": "Layers of rich chocolate sponge soaked in syrup, paired with silky chocolate mousse. Finished with indulgent brownie pieces and a generous drizzle of chocolate sauce.",
     "featured": false,
-    "headerTone": "light"
+    "headerTone": "light",
+    "detailFact": "9 ounce cup"
   },
   {
     "id": "black-forest-cup",
-    "name": "Black Forest Cake Cup",
+    "name": "Tuxedo",
     "category": "Cake cups",
     "catalogueImage": "assets/catalogue/studio/black-forest-cup.png",
     "image": "assets/catalogue/black-forest-cup.jpg",
     "price": {
-      "CAD": 8.5,
-      "USD": 6.5
+      "CAD": 6.0
     },
-    "description": "Dark cake layers, white cream, and a generous finish of chocolate shavings.",
+    "description": "Layers of rich chocolate sponge soaked in syrup, paired with silky chocolate mousse and vanilla mousse. Finished with a generous topping of delicate chocolate shavings.",
     "featured": false,
-    "headerTone": "light"
+    "headerTone": "light",
+    "detailFact": "9 ounce cup"
   },
   {
     "id": "pistachio-cup",
-    "name": "Pistachio Cake Cup",
+    "name": "Pistachio cup",
     "category": "Cake cups",
     "catalogueImage": "assets/catalogue/studio/pistachio-cup.png",
     "image": "assets/catalogue/pistachio-cup.jpg",
     "price": {
-      "CAD": 9,
-      "USD": 7
+      "CAD": 6.0
     },
-    "description": "Cake and cream layers with a generous pistachio topping and striped chocolate sticks.",
+    "description": "Layers of soft vanilla sponge soaked in syrup, paired with silky vanilla mousse and rich pistachio filling. Finished with a generous topping of chopped pistachios and elegant chocolate decorations.",
     "featured": false,
-    "headerTone": "light"
+    "headerTone": "light",
+    "detailFact": "9 ounce cup"
   },
   {
     "id": "strawberry",
-    "name": "Strawberry Cloud Cake",
+    "name": "Strawberry cloud cake",
     "hidden": true,
     "price": {
-      "CAD": 79,
-      "USD": 59
+      "CAD": 79
     }
   },
   {
     "id": "chocolate",
-    "name": "Chocolate Celebration",
+    "name": "Chocolate celebration",
     "hidden": true,
     "price": {
-      "CAD": 79,
-      "USD": 59
+      "CAD": 79
     }
   },
   {
     "id": "berry",
-    "name": "Berry Celebration",
+    "name": "Berry celebration",
     "hidden": true,
     "price": {
-      "CAD": 79,
-      "USD": 59
+      "CAD": 79
     }
   }
 ]

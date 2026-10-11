@@ -1,0 +1,17 @@
+{
+  "printed": {
+    "priceMinor": {
+      "CAD": 300
+    }
+  },
+  "calligraphy": {
+    "priceMinor": {
+      "CAD": 600
+    }
+  },
+  "eggless": {
+    "priceMinor": {
+      "CAD": 500
+    }
+  }
+}

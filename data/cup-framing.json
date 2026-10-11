@@ -1,0 +1,55 @@
+{
+  "boondi-cup": {
+    "rimTop": 183,
+    "base": 1367,
+    "imageHeight": 1369
+  },
+  "carrot-cup": {
+    "rimTop": 26,
+    "base": 1255,
+    "imageHeight": 1268,
+    "imageWidth": 1240,
+    "rimWidth": 1168
+  },
+  "strawberry-cup": {
+    "rimTop": 205,
+    "base": 1338,
+    "imageHeight": 1342,
+    "imageWidth": 1172,
+    "rimWidth": 1160
+  },
+  "gulab-jamun-cup": {
+    "rimTop": 42,
+    "base": 1118,
+    "imageHeight": 1120
+  },
+  "mango-cup": {
+    "rimTop": 0,
+    "base": 1118,
+    "imageHeight": 1120
+  },
+  "rasmalai-cup": {
+    "rimTop": 56,
+    "base": 1238,
+    "imageHeight": 1254,
+    "imageWidth": 1254,
+    "rimWidth": 1200
+  },
+  "chocolate-cup": {
+    "rimTop": 88,
+    "base": 1118,
+    "imageHeight": 1120
+  },
+  "black-forest-cup": {
+    "rimTop": 60,
+    "base": 1118,
+    "imageHeight": 1120
+  },
+  "pistachio-cup": {
+    "rimTop": 63,
+    "base": 1250,
+    "imageHeight": 1265,
+    "imageWidth": 1243,
+    "rimWidth": 1155
+  }
+}

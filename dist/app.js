@@ -1,7 +1,7 @@
 const products = window.SaffronProducts;
 const dietaryCheck = '<svg class="dietary-check" viewBox="0 0 14 14" width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="7" fill="#824443"/><path d="m3.5 7 2.2 2.2 4.8-4.7" fill="none" stroke="#fff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const dietaryMarkup = '<span class="hero-dietary" aria-label="Dietary information">' + ['Peanut free', 'Gelatin free', 'Eggless option'].map(label => `<span>${dietaryCheck}<span class="dietary-label">${label}</span></span>`).join('') + '</span>';
-const heroDescription = product => (product.heroDescription || product.description) + dietaryMarkup;
+const heroDescription = product => (product.heroDescription || product.description).replace(/<\/em>/, `</em><span class="hero-product-name hero-product-name-emphasis"><span class="hero-product-dot" aria-hidden="true">·</span>${window.SaffronStore.escape(product.name + (product.category === 'Cakes' ? ' cake' : ''))}</span>`) + dietaryMarkup;
 const slides = [...document.querySelectorAll('.hero-slide')];
 let currentSlide = 0;
 const carousel = document.querySelector('.hero-carousel');

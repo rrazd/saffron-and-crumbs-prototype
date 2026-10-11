@@ -26,7 +26,7 @@ The About Us story is a draft narrative invented at the user's request. No names
 
 The borderless selector beside the cart offers Canada (CAD) and United States (USD), with flag, chevron and selection checkmark. Manual selection persists across pages and reloads. A supplied country hint (`window.SaffronDetectedCountry` or the HTML `data-country` attribute) takes precedence over browser locale/time-zone fallback, while a saved customer choice takes precedence over detection.
 
-CAD and USD use separately defined placeholder price tables, including message fees and cart totals. Selecting a market updates amounts as well as currency labels. These are preview amounts, not live conversions or Shopify market pricing.
+CAD product prices and add-on fees are the single source of truth. USD charges are converted once into integer cents using the dated Bank of Canada rate in `data/exchange-rates.json` (2026-10-09: 1 USD = 1.4271 CAD). Update this rate with newly published data; it is a dated reference, not a live quote. Selecting a market recalculates product, assortment, add-on and cart amounts.
 
 A future Shopify integration must fetch market-specific product prices, create/update the cart in the selected country context and retain the market through Shopify checkout where supported. Local placeholder prices must not be used as Shopify market pricing. No Shopify connection or checkout is currently implemented.
 
@@ -37,3 +37,5 @@ The logo is the home link. The glass header has its own layout space. Hero selec
 Product pages show Catalogue breadcrumbs above the title, with a clearly styled clickable link. Optional printed or handwritten calligraphy messages stay with their own cart lines.
 
 WhatsApp chat: the floating launcher opens a compact panel linked to `https://wa.me/14166628709`. It opens the business chat without sending a message automatically. Contact information uses the supplied Mississauga address.
+
+The Diwali box builder uses four editable dropdown slots, accepts repeated flavours, and saves each assortment with its cart line. The price is the sum of individually priced cups plus selected extras, multiplied by box quantity. Stable flavour identifiers and readable breakdowns are stored in line item properties. `SaffronStore.toShopifyCartItems(lineId, config)` prepares individually priced cup components and paid add-on variants using real variant mappings; it rejects unavailable, mismatched-price or mismatched-currency mappings. A fixed-price box variant cannot charge this dynamic assortment, and properties do not change checkout prices. The store must supply actual component/add-on variants and implement grouping/fulfillment for this payload before checkout can be connected. No live Shopify checkout verification is possible in this prototype.

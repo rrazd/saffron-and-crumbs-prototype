@@ -1,0 +1,1 @@
+window.SaffronOrderOptions = {"printed":{"priceMinor":{"CAD":300}},"calligraphy":{"priceMinor":{"CAD":600}},"eggless":{"priceMinor":{"CAD":500}}}; window.SaffronExchangeRates = {"base":"CAD","date":"2026-10-09","cadPerUsd":1.4271,"source":"https://www.bankofcanada.ca/rates/exchange/daily-exchange-rates-lookup/?dF=2026-10-09&dT=2026-10-09&se=FXUSDCAD"};

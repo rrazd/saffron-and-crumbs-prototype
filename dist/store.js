@@ -1,12 +1,22 @@
 (() => {
   const products = window.SaffronProducts;
   const knownProduct = id => products.find(product => product.id === id);
+  const validCup = id => knownProduct(id)?.category === 'Cake cups' && !knownProduct(id)?.hidden;
+  const defaultBoxCups = () => [...(knownProduct('diwali-box')?.defaultCups || ['boondi-cup', 'gulab-jamun-cup', 'mango-cup', 'rasmalai-cup'])].sort();
+  const normalizedCups = selection => selection === undefined ? defaultBoxCups() : Array.isArray(selection) && selection.length === 4 && selection.every(id => typeof id === 'string') ? [...selection] : [];
+  const availableCup = id => validCup(id) && knownProduct(id).available !== false && knownProduct(id).availableForSale !== false;
+  const cupKey = selection => JSON.stringify([...selection].sort());
+  function boxProperties(selection) {
+    if (!Array.isArray(selection) || selection.length !== 4 || !selection.every(validCup)) return {};
+    const sorted = [...selection].sort(), counts = sorted.reduce((all, id) => { all[id] = (all[id] || 0) + 1; return all; }, {});
+    return { 'Box flavours': Object.entries(counts).map(([id, count]) => `${knownProduct(id).name.replace(/ cup$/i, '')} × ${count}`).join(', '), _cup_ids: JSON.stringify(sorted) };
+  }
   const escape = value => String(value).replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[character]));
   const read = key => { try { return localStorage.getItem(key); } catch { return null; } };
-  const write = (key, value) => { try { localStorage.setItem(key, value); } catch {} };
+  const write = (key, value) => { try { localStorage.setItem(key, value); return true; } catch { return false; } };
   const markets = {
-    CA: { countryCode: 'CA', currencyCode: 'CAD', name: 'Canada', flag: '🇨🇦' },
-    US: { countryCode: 'US', currencyCode: 'USD', name: 'United States', flag: '🇺🇸' }
+    CA: { countryCode: 'CA', currencyCode: 'CAD', name: 'Canada', flag: '/assets/flag-ca.svg' },
+    US: { countryCode: 'US', currencyCode: 'USD', name: 'United States', flag: '/assets/flag-us.svg' }
   };
   function suggestedCountry() {
     const detected = window.SaffronDetectedCountry?.countryCode || window.SaffronDetectedCountry || document.documentElement.dataset.country;
@@ -31,7 +41,8 @@
         lineId: typeof line.lineId === 'string' ? line.lineId : `saved-${index}`,
         productId: line.productId, quantity: Math.min(99, line.quantity),
         messageType: ['printed', 'calligraphy'].includes(line.messageType) ? line.messageType : 'none',
-        message: typeof line.message === 'string' ? line.message.slice(0, 180) : ''
+        message: typeof line.message === 'string' ? line.message.slice(0, 180) : '', eggless: Boolean(line.eggless),
+        ...(line.productId === 'diwali-box' ? { cupSelection: normalizedCups(line.cupSelection), properties: boxProperties(normalizedCups(line.cupSelection)) } : {})
       }));
     } else {
       const old = JSON.parse(read('saffron-cart-v2') || 'null');
@@ -46,10 +57,25 @@
   } catch {}
   const subscriptions = new Set();
   let toastTimer, lineCounter = 0;
-  // Explicit preview price tables; Shopify market prices replace these when connected.
-  const fee = type => markets[country].currencyCode === 'CAD' ? ({ printed: 3, calligraphy: 6 }[type] || 0) : ({ printed: 2.5, calligraphy: 4.5 }[type] || 0);
-  const price = product => product.price[markets[country].currencyCode];
-  const money = value => `${markets[country].currencyCode === 'CAD' ? 'CA$' : 'US$'}${new Intl.NumberFormat('en-CA', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value)}`;
+  // CAD is authoritative; convert each charge once to integer USD cents.
+  const convertMinor = cadMinor => country === 'US' ? Math.round(cadMinor / window.SaffronExchangeRates.cadPerUsd) : cadMinor;
+  const feeMinor = type => convertMinor(window.SaffronOrderOptions?.[type]?.priceMinor?.CAD || 0);
+  const fee = type => feeMinor(type) / 100;
+  const cupPriceMinor = product => {
+    const value = product?.price?.CAD;
+    const amount = value === undefined || value === null ? NaN : Number(value);
+    const minor = convertMinor(Math.round(amount * 100));
+    return Number.isSafeInteger(minor) && minor >= 0 ? minor : null;
+  };
+  const boxPriceMinor = selection => {
+    if (!Array.isArray(selection) || selection.length !== 4) return null;
+    const amounts = selection.map(id => validCup(id) ? cupPriceMinor(knownProduct(id)) : null);
+    return amounts.some(value => value === null) ? null : amounts.reduce((sum, value) => sum + value, 0);
+  };
+  const priceMinor = product => product?.id === 'diwali-box' ? boxPriceMinor(product.defaultCups || defaultBoxCups()) : cupPriceMinor(product);
+  const price = product => { const value = priceMinor(product); return value === null ? NaN : value / 100; };
+  const money = value => Number.isFinite(value) ? `${markets[country].currencyCode === 'CAD' ? 'CA$' : 'US$'}${new Intl.NumberFormat('en-CA', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value)}` : 'Unavailable';
+  const moneyMinor = value => value === null ? 'Unavailable' : money(value / 100);
   function toast(message) {
     const element = document.querySelector('#toast');
     if (!element) return;
@@ -61,6 +87,9 @@
     const previousQuantity = Number(count?.textContent || 0);
     const quantity = cart.reduce((total, line) => total + line.quantity, 0);
     if (count) count.textContent = quantity;
+    const drawerCount = document.querySelector('#cart-item-total'); if (drawerCount) drawerCount.textContent = `(${quantity})`;
+    const checkout = document.querySelector('#cart-checkout'); if (checkout) checkout.disabled = quantity === 0;
+    const checkoutStatus = document.querySelector('#cart-checkout-status'); if (checkoutStatus) checkoutStatus.hidden = true;
     const cartButton = document.querySelector('#open-cart');
     if (cartButton) {
       cartButton.classList.toggle('has-items', quantity > 0);
@@ -72,19 +101,27 @@
     const element = document.querySelector('#cart-content');
     if (!element) return;
     if (!cart.length) {
-      element.innerHTML = '<p>Your cart is empty.</p><a class="button secondary" href="/catalogue/">Explore the catalogue</a>';
+      element.innerHTML = '<p>Your bag is empty.</p><a class="button secondary" href="/catalogue/">Explore the catalogue</a>';
+      const footerTotal = document.querySelector('#cart-subtotal'); if (footerTotal) footerTotal.textContent = moneyMinor(0);
       return;
     }
-    let subtotal = 0;
+    let subtotal = 0, incomplete = false;
     element.innerHTML = cart.map(line => {
-      const product = knownProduct(line.productId), unit = price(product) + fee(line.messageType);
-      subtotal += unit * line.quantity;
-      const message = line.messageType !== 'none' ? `<p class="cart-message"><strong>${line.messageType === 'printed' ? 'Printed message' : 'Handwritten calligraphy'}</strong><br>${escape(line.message)}</p>` : '';
-      const link = product.hidden ? escape(product.name) : `<a href="/cakes/${product.id}/">${escape(product.name)}</a>`;
-      return `<div class="cart-row"><div class="cart-row-title"><strong>${link}</strong><span>${money(unit * line.quantity)}</span></div>${message}<div class="quantity"><button data-line="${escape(line.lineId)}" data-delta="-1" aria-label="Remove one ${escape(product.name)}">−</button><span>${line.quantity}</span><button data-line="${escape(line.lineId)}" data-delta="1" aria-label="Add one ${escape(product.name)}">+</button><button class="remove-line" data-remove-line="${escape(line.lineId)}">Remove</button></div></div>`;
-    }).join('') + `<div class="cart-subtotal"><strong>Subtotal</strong><strong>${money(subtotal)}</strong></div>`;
+      const product = knownProduct(line.productId), base = product.id === 'diwali-box' ? boxPriceMinor(normalizedCups(line.cupSelection)) : priceMinor(product);
+      const unit = base === null ? null : base + feeMinor(line.messageType) + (line.eggless ? feeMinor('eggless') : 0);
+      if (unit === null) incomplete = true; else subtotal += unit * line.quantity;
+      const message = line.messageType !== 'none' ? `<span class="cart-extra-tag">+ ${line.messageType === 'printed' ? 'Printed message' : 'Handwritten calligraphy'}</span>` : '';
+      const link = product.hidden ? escape(product.name) : `<a class="cart-product-link" href="/cakes/${product.id}/?edit=${encodeURIComponent(line.lineId)}">${escape(product.name)}</a>`;
+      const counts = product.id === 'diwali-box' ? normalizedCups(line.cupSelection).reduce((all, id) => { all[id] = (all[id] || 0) + 1; return all; }, {}) : null;
+      const cups = counts ? `<p class="cart-cup-selection" aria-label="Cups in each box">${Object.entries(counts).map(([id, count])=>`<span class="cart-flavour-token">${escape(knownProduct(id)?.name.replace(/ cup$/i,'') || 'Unavailable flavour')} × ${count}</span>`).join(', ')}</p>` : '';
+      const thumbnail = product.catalogueImage ? `<a class="cart-item-image" href="/cakes/${product.id}/" tabindex="-1" aria-hidden="true"><img src="/${escape(product.catalogueImage)}" alt="" width="96" height="96"></a>` : '';
+      return `<article class="cart-row" data-cart-line="${escape(line.lineId)}">${thumbnail}<div class="cart-item-details"><div class="cart-row-title"><strong>${link}</strong><span>${moneyMinor(unit === null ? null : unit * line.quantity)}<small class="cart-item-quantity">Qty ${line.quantity}</small></span></div>${cups}${message || line.eggless ? `<div class="cart-item-extras">${message}${line.eggless ? '<span class="cart-extra-tag">+ Eggless</span>' : ''}</div>` : ''}<div class="cart-row-actions"><button class="remove-line" type="button" data-remove-line="${escape(line.lineId)}">Remove</button></div></div></article>`;
+    }).join('');
+    const footerTotal = document.querySelector('#cart-subtotal');
+    if (footerTotal) footerTotal.textContent = incomplete ? 'Review unavailable items' : moneyMinor(subtotal);
+    else element.innerHTML += `<div class="cart-subtotal"><strong>Subtotal</strong><strong>${incomplete ? 'Review unavailable items' : moneyMinor(subtotal)}</strong></div>`;
   }
-  function saveCart() { write('saffron-cart-v3', JSON.stringify(cart)); renderCart(); }
+  function saveCart() { const saved = write('saffron-cart-v3', JSON.stringify(cart)); renderCart(); return saved; }
   const cartFlights = new Set();
   function animateCartAddition(product, source) {
     if (!source?.getBoundingClientRect || !source.animate || window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
@@ -113,16 +150,27 @@
     flight.finished.then(cleanup, cleanup);
     setTimeout(cleanup, 800);
   }
-  function add(id, messageType = 'none', message = '', source = null) {
+  function add(id, messageType = 'none', message = '', source = null, quantity = 1, options = {}) {
     const product = knownProduct(id);
     if (!product) return false;
+    if (product.category === 'Cake cups' && (!Number.isInteger(Number(quantity)) || Number(quantity) < 4)) return false;
     if (!['none', 'printed', 'calligraphy'].includes(messageType)) return false;
+    quantity = Math.max(1, Math.min(99, Math.floor(Number(quantity) || 1)));
     message = messageType === 'none' ? '' : String(message).trim().slice(0, 180);
     if (messageType !== 'none' && !message) return false;
-    const existing = cart.find(line => line.productId === id && line.messageType === messageType && line.message === message);
-    if (existing) existing.quantity = Math.min(99, existing.quantity + 1);
-    else cart.push({ lineId: `line-${Date.now()}-${lineCounter++}`, productId: id, quantity: 1, messageType, message });
-    saveCart(); animateCartAddition(product, source); toast(`${product.name} added to your cart`); return true;
+    if (id === 'diwali-box' && options.cupSelection !== undefined && (!Array.isArray(options.cupSelection) || options.cupSelection.length !== 4 || !options.cupSelection.every(availableCup))) return false;
+    const cupSelection = id === 'diwali-box' ? normalizedCups(options.cupSelection) : [];
+    if (id === 'diwali-box' && !cupSelection.every(availableCup)) return false;
+    const unitMinor = (id === 'diwali-box' ? boxPriceMinor(cupSelection) : priceMinor(product));
+    if (unitMinor === null) return false;
+    if (options.expectedUnitMinor !== undefined && options.expectedUnitMinor !== unitMinor + feeMinor(messageType) + (options.eggless ? feeMinor('eggless') : 0)) { const error = new Error('The price has changed.'); error.code = 'PRICE_CHANGED'; throw error; }
+    const eggless = Boolean(options.eggless);
+    const previousCart = cart.map(line => ({ ...line }));
+    const existing = cart.find(line => line.productId === id && line.messageType === messageType && line.message === message && Boolean(line.eggless) === eggless && (id !== 'diwali-box' || cupKey(normalizedCups(line.cupSelection)) === cupKey(cupSelection)));
+    if (existing) existing.quantity = Math.min(99, existing.quantity + quantity);
+    else cart.push({ lineId: `line-${Date.now()}-${lineCounter++}`, productId: id, quantity, messageType, message, eggless, ...(id === 'diwali-box' ? { cupSelection, properties: boxProperties(cupSelection) } : {}) });
+    if (!saveCart()) { cart = previousCart; renderCart(); throw new Error('Your cart could not be saved. Please try again.'); }
+    animateCartAddition(product, source); toast(`${product.name} added to your cart`); return true;
   }
   document.querySelector('#cart-content')?.addEventListener('click', event => {
     const button = event.target.closest('[data-line], [data-remove-line]');
@@ -139,7 +187,7 @@
   const options = [...document.querySelectorAll('[data-market]')];
   function renderMarket() {
     const market = markets[country];
-    document.querySelector('#market-flag').textContent = market.flag;
+    document.querySelector('#market-flag').src = market.flag;
     document.querySelector('#market-code').textContent = market.currencyCode;
     trigger.setAttribute('aria-label', `Country and currency: ${market.name}, ${market.currencyCode}`);
     options.forEach(option => option.setAttribute('aria-checked', option.dataset.market === country ? 'true' : 'false'));
@@ -164,7 +212,7 @@
       renderMarket(); closeMarket(true);
       // Select the separately defined preview price table, never a live conversion.
       renderCart();
-      subscriptions.forEach(callback => callback());
+      subscriptions.forEach(callback => callback({ reason: 'market' }));
     });
     option.addEventListener('keydown', event => {
       if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
@@ -176,14 +224,33 @@
   document.addEventListener('click', event => { if (!marketControl.contains(event.target)) closeMarket(); });
   document.addEventListener('keydown', event => { if (event.key === 'Escape' && !menu.hasAttribute('hidden')) closeMarket(true); });
   renderMarket();
-  document.querySelector('#open-cart')?.addEventListener('click', () => document.querySelector('#cart-dialog').showModal());
-  document.querySelector('#close-cart')?.addEventListener('click', () => document.querySelector('#cart-dialog').close());
+  const cartDialog = document.querySelector('#cart-dialog');
+  let cartPreviousOverflow = '', cartClosing = false;
+  const reducedCartMotion = () => window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+  function closeCart() {
+    if (!cartDialog?.hasAttribute('open') || cartClosing) return;
+    if (!cartDialog.animate || reducedCartMotion()) { cartDialog.close(); return; }
+    cartClosing = true; cartDialog.classList.add('is-closing');
+    const animation = cartDialog.animate([{transform:'translateX(0)'},{transform:'translateX(100%)'}], {duration:180,easing:'cubic-bezier(.4,0,1,1)'});
+    const finish = () => { cartDialog.close(); cartDialog.classList.remove('is-closing'); cartClosing = false; };
+    animation.onfinish = finish; animation.oncancel = finish;
+  }
+  document.querySelector('#open-cart')?.addEventListener('click', () => {
+    if (cartDialog.hasAttribute('open')) return;
+    cartPreviousOverflow = document.body.style.overflow; cartDialog.showModal(); document.body.style.overflow = 'hidden';
+    if (cartDialog.animate && !reducedCartMotion()) cartDialog.animate([{transform:'translateX(100%)'},{transform:'translateX(0)'}], {duration:240,easing:'cubic-bezier(.2,.8,.2,1)'});
+  });
+  document.querySelector('#close-cart')?.addEventListener('click', closeCart);
+  cartDialog?.addEventListener('cancel', event => { event.preventDefault(); closeCart(); });
+  cartDialog?.addEventListener('close', () => { document.body.style.overflow = cartPreviousOverflow; });
+  cartDialog?.addEventListener('keydown', event => { if (event.key === 'Escape') event.stopPropagation(); });
+  document.querySelector('#cart-checkout')?.addEventListener('click', () => { const status = document.querySelector('#cart-checkout-status'); status.textContent = 'Online checkout is not connected yet. Your selections are saved in your bag.'; status.hidden = false; });
   document.querySelectorAll('[data-panel]').forEach(button => button.addEventListener('click', () => document.getElementById(button.dataset.panel)?.showModal()));
   document.querySelectorAll('[data-close-panel]').forEach(button => button.addEventListener('click', () => button.closest('dialog').close()));
   document.querySelectorAll('dialog').forEach(panel => panel.addEventListener('click', event => {
     if (event.target !== panel) return;
     const bounds = panel.getBoundingClientRect();
-    if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) panel.close();
+    if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) { if (panel === cartDialog) closeCart(); else panel.close(); }
   }));
   document.querySelectorAll('[data-social]').forEach(button => button.addEventListener('click', () => toast(`${button.dataset.social} profile link coming soon`)));
   const whatsappToggle = document.querySelector('#whatsapp-toggle');
@@ -223,7 +290,66 @@
   function measureHeader() { if (header) document.documentElement.style.setProperty('--nav-height', `${header.getBoundingClientRect().height}px`); queueHeader(); }
   window.addEventListener('scroll', queueHeader, { passive: true }); window.addEventListener('resize', measureHeader);
   if (typeof ResizeObserver !== 'undefined' && header) new ResizeObserver(measureHeader).observe(header);
-  window.SaffronStore = { get currency() { return markets[country].currencyCode; }, get market() { return { ...markets[country] }; }, get pricingCurrency() { return markets[country].currencyCode; }, price, money, fee, add, toast, escape, subscribe(callback) { subscriptions.add(callback); }, updateHeader };
+  function toShopifyCartItem(lineId, variantId) {
+    const line = cart.find(item => item.lineId === lineId);
+    if (!line) throw new Error('Cart line not found.');
+    if (line.productId === 'diwali-box') throw new Error('A fixed-price box variant cannot charge for selected flavours. Use the individually priced component adapter.');
+    if (line.eggless || feeMinor(line.messageType) > 0) throw new Error('Priced add-ons require real Shopify add-on variants.');
+    if (!Number.isSafeInteger(variantId) || variantId <= 0) throw new Error('A Shopify variant ID is required.');
+    const properties = {};
+    if (line.messageType !== 'none') { properties.Note = line.message; properties['Note style'] = line.messageType === 'calligraphy' ? 'Handwritten calligraphy' : 'Printed message'; }
+    return { id: variantId, quantity: line.quantity, properties };
+  }
+  function toShopifyCartItems(lineId, config) {
+    const line = cart.find(item => item.lineId === lineId);
+    if (!line || line.productId !== 'diwali-box') throw new Error('A configured Diwali box cart line is required.');
+    const selected = normalizedCups(line.cupSelection);
+    if (selected.length !== 4 || !selected.every(availableCup)) throw new Error('Replace unavailable flavours before checkout.');
+    const properties = { ...boxProperties(selected), ...(line.eggless ? { Eggless: 'Yes' } : {}), 'Gift box': 'Diwali cake cup box', 'Boxes': String(line.quantity), _box_group: line.lineId };
+    const counts = selected.reduce((all,id) => { all[id] = (all[id] || 0) + 1; return all; }, {});
+    const item = (mapping, quantity, expected, details) => {
+      if (!mapping || !Number.isSafeInteger(mapping.variantId) || mapping.variantId <= 0) throw new Error('Live Shopify cup variants have not been configured.');
+      if (mapping.available === false) throw new Error('A selected Shopify variant is unavailable.');
+      if (mapping.currency !== markets[country].currencyCode || mapping.unitPriceMinor !== expected) throw new Error('Refresh Shopify market prices before checkout.');
+      return { id: mapping.variantId, quantity, properties: { ...properties, ...details } };
+    };
+    const items = Object.entries(counts).map(([id,count]) => item(config?.variants?.[id], count * line.quantity, cupPriceMinor(knownProduct(id)), { 'Cup flavour': knownProduct(id).name.replace(/ cup$/i,'') }));
+    if (line.messageType !== 'none') {
+      const details = { Note: line.message, 'Note style': line.messageType === 'calligraphy' ? 'Handwritten calligraphy' : 'Printed message' };
+      items.forEach(component => Object.assign(component.properties, details));
+      if (feeMinor(line.messageType) > 0) items.push(item(config?.addons?.[line.messageType], line.quantity, feeMinor(line.messageType), details));
+    }
+    if (line.eggless) items.push(item(config?.addons?.eggless, line.quantity, feeMinor('eggless'), { Eggless: 'Yes' }));
+    // Shopify charges its real variant prices. No price override is sent here.
+    return { items };
+  }
+  function getCartLine(lineId) {
+    const line = cart.find(item => item.lineId === lineId);
+    return line ? { ...line, ...(line.cupSelection ? { cupSelection: [...line.cupSelection], properties: { ...line.properties } } : {}) } : null;
+  }
+  function updateCartLine(lineId, options) {
+    const index = cart.findIndex(item => item.lineId === lineId);
+    if (index < 0) throw new Error('This cart item no longer exists. Please add it as a new item.');
+    const line = cart[index];
+    const isBox = line.productId === 'diwali-box';
+    if (isBox && (!Array.isArray(options.cupSelection) || options.cupSelection.length !== 4 || !options.cupSelection.every(availableCup))) return false;
+    const quantity = Number(options.quantity);
+    if (!Number.isInteger(quantity) || quantity < (knownProduct(line.productId)?.category === 'Cake cups' ? 4 : 1) || quantity > 99) return false;
+    const messageType = options.messageType || 'none', message = messageType === 'none' ? '' : String(options.message || '').trim().slice(0,180);
+    if (!['none','printed','calligraphy'].includes(messageType) || messageType !== 'none' && !message) return false;
+    const base = isBox ? boxPriceMinor(options.cupSelection) : priceMinor(knownProduct(line.productId));
+    if (base === null) return false;
+    if (options.expectedUnitMinor !== undefined && options.expectedUnitMinor !== base + feeMinor(messageType) + (options.eggless ? feeMinor('eggless') : 0)) { const error = new Error('The price has changed.'); error.code = 'PRICE_CHANGED'; throw error; }
+    cart[index] = { ...line, quantity, messageType, message, eggless: Boolean(options.eggless), ...(isBox ? { cupSelection: [...options.cupSelection], properties: boxProperties(options.cupSelection) } : {}) };
+    if (!saveCart()) { cart[index] = line; renderCart(); throw new Error('Your changes could not be saved. Please try again.'); }
+    toast('Your box has been updated'); return true;
+  }
+  function updateProducts(nextProducts) {
+    if (!Array.isArray(nextProducts)) throw new Error('Product data must be an array.');
+    const snapshot = [...nextProducts]; products.splice(0, products.length, ...snapshot);
+    renderCart(); subscriptions.forEach(callback => callback({ reason: 'products' }));
+  }
+  window.SaffronStore = { get currency() { return markets[country].currencyCode; }, get market() { return { ...markets[country] }; }, get pricingCurrency() { return markets[country].currencyCode; }, price, priceMinor, boxPriceMinor, money, moneyMinor, fee, feeMinor, add, toast, escape, boxProperties, toShopifyCartItem, toShopifyCartItems, getCartLine, updateCartLine, updateProducts, subscribe(callback) { subscriptions.add(callback); }, updateHeader };
   renderCart(); measureHeader();
 })();
 
