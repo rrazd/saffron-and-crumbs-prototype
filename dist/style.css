@@ -1081,3 +1081,5 @@ input::placeholder,textarea::placeholder{color:#625d59;opacity:1}
 
 
 .founder-daughter,.founder-mother,.founder-baker-hat,.founder-doodle{animation:none!important}
+
+@media(max-width:1050px){.cart-drawer{width:100vw;max-width:100vw}}
