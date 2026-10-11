@@ -81,6 +81,20 @@
     "detailFact": "5-inch cake"
   },
   {
+    "id": "grand-mithai-cake",
+    "name": "The Grand Mithai Cake",
+    "category": "Cakes",
+    "catalogueImage": "assets/catalogue/studio/grand-mithai-cake.png",
+    "image": "assets/catalogue/studio/grand-mithai-cake.png",
+    "price": {
+      "CAD": 17.99
+    },
+    "description": "Layers of soft vanilla sponge soaked in creamy rasmalai milk, paired with a light, luscious vanilla mousse. Adorned with pieces of rasmalai and gulab jamun, crunchy pistachios, and delicate rose petals for an indulgent Indian-inspired treat.",
+    "detailFact": "5-inch cake",
+    "featured": false,
+    "headerTone": "light"
+  },
+  {
     "id": "boondi-cup",
     "name": "Moti choor ladoo",
     "category": "Cake cups",

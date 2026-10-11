@@ -44,9 +44,9 @@ assert.equal(home.document.querySelector('#hero-shop').getAttribute('href'), '/c
 home = boot('dist/index.html');
 assert.equal(home.document.querySelector('#slide-number').textContent, '02');
 let catalogue = boot('dist/catalogue/index.html');
-assert.equal(visible(catalogue, '.catalogue-card').length, 14);
+assert.equal(visible(catalogue, '.catalogue-card').length, 15);
 catalogue.document.querySelector('[data-filter="Cakes"]').click();
-assert.equal(visible(catalogue, '.catalogue-card').length, 4);
+assert.equal(visible(catalogue, '.catalogue-card').length, 5);
 catalogue.document.querySelector('[data-filter="Cake cups"]').click();
 assert.equal(visible(catalogue, '.catalogue-card').length, 9);
 catalogue.document.querySelector('[data-filter="Gift boxes"]').click();
@@ -115,7 +115,7 @@ stored.clear(); stored.set('saffron-cart-v2', '{"berry":2,"gulab-jamun":1}');
 const legacy = boot('dist/index.html');
 assert.equal(legacy.document.querySelector('#cart-count').textContent, '3');
 assert(legacy.document.querySelector('#cart-content').textContent.includes('Berry celebration'));
-console.log('Passed: SVG ingredient isolation, refreshed hero, full-page links, 14-product grid and filters, breadcrumbs, CAD-derived USD pricing and persistent selection, message validation and escaping, per-message cart lines, quantities and legacy migration.');
+console.log('Passed: SVG ingredient isolation, refreshed hero, full-page links, 15-product grid and filters, breadcrumbs, CAD-derived USD pricing and persistent selection, message validation and escaping, per-message cart lines, quantities and legacy migration.');
 
 const contact = boot('dist/contact/index.html');
 const launcher = contact.document.querySelector('#whatsapp-toggle');
@@ -373,7 +373,7 @@ const notePage = boot('dist/cakes/diwali-box/index.html');
 assert(notePage.document.querySelector('#purchase-message').getAttribute('placeholder').includes('Diwali'));
 assert(notePage.document.querySelector('[data-packaging-no-note]').getAttribute('src').includes('no-note'));
 const socialPage = boot('dist/contact/index.html');
-assert.equal(socialPage.document.querySelector('.contact-socials [data-social="Instagram"]').nextElementSibling.dataset.social,'TikTok');
+assert.equal(socialPage.document.querySelector('.contact-socials [aria-label="Instagram"]').nextElementSibling.dataset.social,'TikTok');
 console.log('Passed: all detail packaging galleries, four-cup minimum with inline validation, static portraits, Diwali note defaults, and TikTok ordering.');
 
 testBoxSelectors().catch(error=>{console.error(error);process.exitCode=1;});

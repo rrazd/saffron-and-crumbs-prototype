@@ -1,55 +1,66 @@
 {
   "boondi-cup": {
-    "rimTop": 183,
-    "base": 1367,
-    "imageHeight": 1369
+    "rimTop": 215.1602086438152,
+    "base": 1334,
+    "imageHeight": 1343,
+    "imageWidth": 1171,
+    "nativeAspect": true
   },
   "carrot-cup": {
-    "rimTop": 26,
-    "base": 1255,
-    "imageHeight": 1268,
-    "imageWidth": 1240,
-    "rimWidth": 1168
+    "imageWidth": 1172,
+    "imageHeight": 1342,
+    "rimTop": 140,
+    "base": 1333,
+    "nativeAspect": true
   },
   "strawberry-cup": {
     "rimTop": 205,
     "base": 1338,
     "imageHeight": 1342,
     "imageWidth": 1172,
-    "rimWidth": 1160
+    "rimWidth": 1160,
+    "nativeAspect": true
   },
   "gulab-jamun-cup": {
-    "rimTop": 42,
-    "base": 1118,
-    "imageHeight": 1120
+    "rimTop": 100.0,
+    "base": 1333,
+    "imageHeight": 1342,
+    "imageWidth": 1172,
+    "nativeAspect": true
   },
   "mango-cup": {
-    "rimTop": 0,
-    "base": 1118,
-    "imageHeight": 1120
+    "rimTop": 65.0,
+    "base": 1333,
+    "imageHeight": 1342,
+    "imageWidth": 1172,
+    "nativeAspect": true
   },
   "rasmalai-cup": {
-    "rimTop": 56,
-    "base": 1238,
-    "imageHeight": 1254,
-    "imageWidth": 1254,
-    "rimWidth": 1200
+    "rimTop": 40.0,
+    "base": 1333,
+    "imageHeight": 1342,
+    "imageWidth": 1172,
+    "nativeAspect": true
   },
   "chocolate-cup": {
-    "rimTop": 88,
-    "base": 1118,
-    "imageHeight": 1120
+    "rimTop": 175.0,
+    "base": 1333,
+    "imageHeight": 1342,
+    "imageWidth": 1172,
+    "nativeAspect": true
   },
   "black-forest-cup": {
-    "rimTop": 60,
-    "base": 1118,
-    "imageHeight": 1120
+    "imageWidth": 1172,
+    "imageHeight": 1342,
+    "rimTop": 140,
+    "base": 1333,
+    "nativeAspect": true
   },
   "pistachio-cup": {
-    "rimTop": 63,
-    "base": 1250,
-    "imageHeight": 1265,
-    "imageWidth": 1243,
-    "rimWidth": 1155
+    "rimTop": 95.0,
+    "base": 1333,
+    "imageHeight": 1342,
+    "imageWidth": 1172,
+    "nativeAspect": true
   }
 }
