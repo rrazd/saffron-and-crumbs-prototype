@@ -131,7 +131,7 @@ assert(contact.document.querySelector('.contact-email-subtext').textContent.incl
 assert.equal(contact.document.querySelector('.contact-unconfigured'), null);
 assert(contact.document.querySelector('.footer-copyright').textContent.includes('Copyright © 2026'));
 const about = boot('dist/about/index.html');
-assert(about.document.querySelector('.about-story').textContent.includes('a mother’s love for baking'));
+assert(about.document.querySelector('.about-story').textContent.includes('a mother in Toronto and a daughter in San Francisco'));
 assert.equal(about.document.querySelectorAll('.founder-portrait figcaption').length, 2);
 assert.equal(about.document.querySelector('.founder-art-note'), null);
 assert.equal(about.document.querySelector('.nav-panel[aria-current="page"]').getAttribute('href'), '/about/');
