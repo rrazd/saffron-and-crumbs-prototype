@@ -1181,3 +1181,7 @@ input::placeholder,textarea::placeholder{color:#625d59;opacity:1}
 .contact-socials a svg{width:22px;height:22px}
 .site-footer .footer-socials a{display:grid;place-items:center;width:18px;height:18px;padding:0;color:inherit}
 .site-footer .footer-socials a svg{width:18px;height:18px}
+
+/* Anchor the mobile currency picker to its trigger inside the navigation. */
+@media(max-width:1050px){.header .market-control .market-menu{position:absolute;top:calc(100% + 8px);left:0;right:auto;width:min(260px,calc(100vw - 2 * var(--site-gutter)));max-height:220px;overflow-y:auto;overscroll-behavior:contain}}
+@media(max-width:1050px) and (max-height:550px){.header .market-control .market-menu{top:auto;bottom:calc(100% + 8px)}}
