@@ -45,7 +45,7 @@ function showSlide(index) {
   document.querySelector('#hero-title').innerHTML = product.title;
   document.querySelector('#hero-description').innerHTML = heroDescription(product);
   const link = document.querySelector('#hero-shop');
-  link.textContent = 'View Cake'; link.href = `/cakes/${product.id}/`; link.setAttribute('aria-label', `View ${product.name}`);
+  link.textContent = product.cta || 'View Cake'; link.href = `/cakes/${product.id}/`; link.setAttribute('aria-label', `View ${product.name}`);
   carousel.classList.remove('ingredients-burst');
   void carousel.offsetWidth;
   carousel.classList.add('ingredients-burst');
